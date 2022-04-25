@@ -1,0 +1,9 @@
+{
+  "name": "John Doe",
+  "dateOfBirth": "2000-05-06",
+  "billingAddress": {
+    "city": "Butapest",
+    "postCode": "1999",
+    "street": "Pék utca 3."
+  }
+}

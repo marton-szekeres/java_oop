@@ -1,0 +1,14 @@
+{
+  "name": "Jane Doe",
+  "dateOfBirth": "2002-06-14",
+  "billingAddress": {
+    "city": "Butapest",
+    "postCode": "1999",
+    "street": "Pék utca 4."
+  },
+  "mailAddress": {
+    "city": "Kukutyinfalva",
+    "postCode": "9111",
+    "street": "Bakter utca 9."
+  }
+}
