@@ -1,14 +1,40 @@
 import java.io.Serializable;
-import java.util.Map;
 
 public class Profile implements Serializable {
-    private Map<String, Object> userInfo;
+    private String name;
+    private String dateOfBirth;
+    private Address billingAddress;
+    private Address mailAddress;
 
-    public Map<String, Object> getUserinfo() {
-        return userInfo;
+    public String getName() {
+        return name;
     }
 
-    public void setUserinfo(Map<String, Object> infos) {
-        this.userInfo = infos;
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
+
+    public Address getMailAddress() {
+        return mailAddress;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public void setMailAddress(Address mailAddress) {
+        this.mailAddress = mailAddress;
     }
 }
