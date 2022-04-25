@@ -2,6 +2,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,7 +19,16 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println("Jane: " + profileOne.getBillingAddress().getStreet());
-        System.out.println("John: " + profileTwo.getBillingAddress().getStreet());
+        Map<String, String> mapOne = new ObjectMapper().convertValue(profileOne, Map.class);
+        Map<String, String> mapTwo = new ObjectMapper().convertValue(profileTwo, Map.class);
+
+        mapTwo.forEach(
+                (key, value) -> mapOne.merge( key, value, (v1, v2) -> v1.equalsIgnoreCase(v2) ? v1 : v1 + "," + v2)
+        );
+
+        System.out.println(mapOne);
+
     }
+
+
 }
