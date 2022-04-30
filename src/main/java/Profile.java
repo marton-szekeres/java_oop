@@ -37,4 +37,14 @@ public class Profile implements Serializable {
     public void setMailAddress(Address mailAddress) {
         this.mailAddress = mailAddress;
     }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "name='" + name + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", billingAddress=" + billingAddress +
+                ", mailAddress=" + mailAddress +
+                '}';
+    }
 }
