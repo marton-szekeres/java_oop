@@ -2,7 +2,7 @@ import java.util.Map;
 
 public class Output {
     private Map<String, String[]> primitiveFields;
-    private Map<String, Output[]> beanFields;
+    private Map<String, Output> beanFields;
 
     public Map<String, String[]> getPrimitiveFields() {
         return primitiveFields;
