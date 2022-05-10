@@ -33,6 +33,7 @@ public class Main {
         Profile profileTwo = new Profile();
         File fileOne = new File("src/main/resources/profile_jane.json");
         File fileTwo = new File("src/main/resources/profile_john.json");
+        Output OutputOne = new Output();
         ObjectMapper mapper = new ObjectMapper();
 
         try {
