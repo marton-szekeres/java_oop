@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -25,6 +24,7 @@ public class Main {
                 out.put(newPrefix, value);
             }
         }
+        out.values().removeIf(Objects::isNull);
         return out;
     }
 
@@ -44,10 +44,8 @@ public class Main {
 
         HashMap<String, Object> outputOne = new HashMap<>();
         fieldGetter(profileOne, outputOne, null);
-
         HashMap<String, Object> outputTwo = new HashMap<>();
         fieldGetter(profileTwo, outputTwo, null);
-
 
         Set<String> keySetOne = outputOne.keySet();
         Set<String> keySetTwo = outputTwo.keySet();
