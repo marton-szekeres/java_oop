@@ -49,15 +49,14 @@ public class Main {
         fieldGetter(profileTwo, outputTwo, null);
 
 
-
-        Set<String> one = outputOne.keySet();
-        Set<String> two = outputTwo.keySet();
-        Set<String> union = new HashSet<String>(one);
-        union.addAll(two);
+        Set<String> keySetOne = outputOne.keySet();
+        Set<String> keySetTwo = outputTwo.keySet();
+        Set<String> keySetunion = new HashSet<String>(keySetOne);
+        keySetunion.addAll(keySetTwo);
 
         HashMap<String, Object> differentEntries = new HashMap<>();
 
-        for (String key : union) {
+        for (String key : keySetunion) {
             if (outputOne.containsKey(key) && outputTwo.containsKey(key) && !outputOne.get(key).equals(outputTwo.get(key))) {
                 differentEntries.put(key, new ArrayList<>(Arrays.asList(outputOne.get(key), outputTwo.get(key))));
             } else if (!outputOne.containsKey(key)) {
