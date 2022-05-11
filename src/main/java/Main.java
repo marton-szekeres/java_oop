@@ -59,17 +59,14 @@ public class Main {
 
         for (String key : union) {
             if (outputOne.containsKey(key) && outputTwo.containsKey(key) && !outputOne.get(key).equals(outputTwo.get(key))) {
-                Object[] temp = new Object[]{outputOne.get(key), outputTwo.get(key)};
-                differentEntries.put(key, temp);
+                differentEntries.put(key, new ArrayList<>(Arrays.asList(outputOne.get(key), outputTwo.get(key))));
             } else if (!outputOne.containsKey(key)) {
-                Object[] temp = new Object[]{null, outputTwo.get(key)};
-                differentEntries.put(key, temp);
+                differentEntries.put(key, new ArrayList<>(Arrays.asList(null, outputTwo.get(key))));
             } else if (!outputTwo.containsKey(key)) {
-                Object[] temp = new Object[]{outputOne.get(key), null};
-                differentEntries.put(key, temp);
+                differentEntries.put(key, new ArrayList<>(Arrays.asList(outputOne.get(key), null)));
             }
         }
 
-        System.out.println(union);
+        System.out.println(differentEntries);
     }
 }
