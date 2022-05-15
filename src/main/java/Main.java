@@ -1,8 +1,10 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Main {
@@ -28,7 +30,7 @@ public class Main {
         return out;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Profile profileOne = new Profile();
         Profile profileTwo = new Profile();
         File fileOne = new File("src/main/resources/profile_jane.json");
@@ -59,21 +61,20 @@ public class Main {
             if (outputOne.containsKey(key) && outputTwo.containsKey(key) && !outputOne.get(key).equals(outputTwo.get(key))) {
                 entry.setElementOne((String) outputOne.get(key));
                 entry.setElementTwo((String) outputTwo.get(key));
-                System.out.println(entry.getElementOne());
-                System.out.println(entry.getElementTwo());
-                output.getPrimitiveFields().put(key, entry);
+                output.addField(key,entry.toList());
             } else if (!outputOne.containsKey(key)) {
                 entry.setElementOne(null);
                 entry.setElementTwo((String) outputTwo.get(key));
-                output.getPrimitiveFields().put(key, entry);
+                output.getFields().put(key, entry.toList());
             } else if (!outputTwo.containsKey(key)) {
                 entry.setElementOne((String) outputOne.get(key));
                 entry.setElementTwo(null);
-                output.getPrimitiveFields().put(key, entry);
+                output.getFields().put(key, entry.toList());
             }
         }
 
-
-        System.out.println(output);
+        String json = mapper.writeValueAsString(output);
+        mapper.writeValue(new File("test.json"), output);
+        System.out.println(json);
     }
 }
