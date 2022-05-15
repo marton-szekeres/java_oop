@@ -1,31 +1,13 @@
 import java.util.Map;
 
 public class Output {
-    private Map<String, String[]> primitiveFields;
-    private Map<String, Output[]> beanFields;
+    private Map<String, Entry> primitiveFields;
 
-
-    public Map<String, String[]> getPrimitiveFields() {
+    public Map<String, Entry> getPrimitiveFields() {
         return primitiveFields;
     }
 
-    public void setPrimitiveFields(Map<String, String[]> primitiveFields) {
+    public void setPrimitiveFields(Map<String, Entry> primitiveFields) {
         this.primitiveFields = primitiveFields;
-    }
-
-    public Map<String, Output[]> getBeanFields() {
-        return beanFields;
-    }
-
-    public void setBeanFields(Map<String, Output[]> beanFields) {
-        this.beanFields = beanFields;
-    }
-
-    @Override
-    public String toString() {
-        return "Output{" +
-                ", primitiveFields=" + primitiveFields +
-                ", beanFields=" + beanFields +
-                '}';
     }
 }

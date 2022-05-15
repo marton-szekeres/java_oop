@@ -52,18 +52,28 @@ public class Main {
         Set<String> keySetunion = new HashSet<String>(keySetOne);
         keySetunion.addAll(keySetTwo);
 
-        HashMap<String, Object> differentEntries = new HashMap<>();
+        Output output = new Output();
 
         for (String key : keySetunion) {
             if (outputOne.containsKey(key) && outputTwo.containsKey(key) && !outputOne.get(key).equals(outputTwo.get(key))) {
-                differentEntries.put(key, new ArrayList<>(Arrays.asList(outputOne.get(key), outputTwo.get(key))));
+                Entry entry = new Entry();
+                entry.setElementOne((String) outputOne.get(key));
+                entry.setElementTwo((String) outputTwo.get(key));
+                output.getPrimitiveFields().put(key, entry);
             } else if (!outputOne.containsKey(key)) {
-                differentEntries.put(key, new ArrayList<>(Arrays.asList(null, outputTwo.get(key))));
+                Entry entry = new Entry();
+                entry.setElementOne(null);
+                entry.setElementTwo((String) outputTwo.get(key));
+                output.getPrimitiveFields().put(key, entry);
             } else if (!outputTwo.containsKey(key)) {
-                differentEntries.put(key, new ArrayList<>(Arrays.asList(outputOne.get(key), null)));
+                Entry entry = new Entry();
+                entry.setElementOne((String) outputOne.get(key));
+                entry.setElementTwo(null);
+                output.getPrimitiveFields().put(key, entry);
             }
         }
 
-        System.out.println(differentEntries);
+
+        System.out.println(output);
     }
 }
