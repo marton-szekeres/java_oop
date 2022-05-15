@@ -53,20 +53,20 @@ public class Main {
         keySetunion.addAll(keySetTwo);
 
         Output output = new Output();
+        Entry entry = new Entry();
 
         for (String key : keySetunion) {
             if (outputOne.containsKey(key) && outputTwo.containsKey(key) && !outputOne.get(key).equals(outputTwo.get(key))) {
-                Entry entry = new Entry();
                 entry.setElementOne((String) outputOne.get(key));
                 entry.setElementTwo((String) outputTwo.get(key));
+                System.out.println(entry.getElementOne());
+                System.out.println(entry.getElementTwo());
                 output.getPrimitiveFields().put(key, entry);
             } else if (!outputOne.containsKey(key)) {
-                Entry entry = new Entry();
                 entry.setElementOne(null);
                 entry.setElementTwo((String) outputTwo.get(key));
                 output.getPrimitiveFields().put(key, entry);
             } else if (!outputTwo.containsKey(key)) {
-                Entry entry = new Entry();
                 entry.setElementOne((String) outputOne.get(key));
                 entry.setElementTwo(null);
                 output.getPrimitiveFields().put(key, entry);
