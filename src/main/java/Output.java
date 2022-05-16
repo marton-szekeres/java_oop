@@ -12,11 +12,11 @@ public class Output {
         this.primitiveFields = primitiveFields;
     }
 
-    public Map<String, Output[]> getBeanFields() {
+    public Map<String, Output> getBeanFields() {
         return beanFields;
     }
 
-    public void setBeanFields(Map<String, Output[]> beanFields) {
+    public void setBeanFields(Map<String, Output> beanFields) {
         this.beanFields = beanFields;
     }
 

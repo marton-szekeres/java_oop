@@ -33,7 +33,7 @@ public class Main {
                     String[] values = {(String) mapOne.get(key), (String) mapTwo.get(key)};
                     output.getPrimitiveFields().put(key, values);
                 } else {
-                    Output values = "???";
+                    Output values = compareProfiles();
                     output.getBeanFields().put(key, values);
                 }
             }
