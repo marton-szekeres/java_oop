@@ -1,8 +1,14 @@
+import java.util.HashMap;
 import java.util.Map;
 
 public class Output {
     private Map<String, String[]> primitiveFields;
     private Map<String, Output> beanFields;
+
+    Output() {
+        primitiveFields = new HashMap<>();
+        beanFields = new HashMap<>();
+    }
 
     public Map<String, String[]> getPrimitiveFields() {
         return primitiveFields;
