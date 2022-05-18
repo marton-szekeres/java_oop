@@ -33,17 +33,20 @@ public class Main {
         keySetunion.addAll(keySetTwo);
 
         for (String key : keySetunion) {
-            if (!mapTwo.get(key).equals(mapOne.get(key))) {
-                if ((mapOne.get(key) instanceof String)) {
-                    String[] values = {(String) mapOne.get(key), (String) mapTwo.get(key)};
-                    output.getPrimitiveFields().put(key, values);
-                } else {
-                    Output values = compareProfiles();
-                    output.getBeanFields().put(key, values);
-                }
+            if (mapOne.containsKey(key) && mapTwo.containsKey(key) && !mapOne.get(key).equals(mapTwo.get(key))) {
+                entry.setElementOne((String) outputOne.get(key));
+                entry.setElementTwo((String) outputTwo.get(key));
+                output.addField(key,entry.toList());
+            } else if (!outputOne.containsKey(key)) {
+                entry.setElementOne(null);
+                entry.setElementTwo((String) outputTwo.get(key));
+                output.getFields().put(key, entry.toList());
+            } else if (!outputTwo.containsKey(key)) {
+                entry.setElementOne((String) outputOne.get(key));
+                entry.setElementTwo(null);
+                output.getFields().put(key, entry.toList());
             }
-        }
-        return output;
+        }        return output;
     }
 
     public static void main(String[] args) {
