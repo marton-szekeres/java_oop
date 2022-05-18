@@ -26,6 +26,7 @@ public class Main {
     public static Output compareProfiles(HashMap<String, Object> mapOne, HashMap<String, Object> mapTwo, Output out) {
 
         Output output = out;
+        Entry entry = new Entry();
 
         Set<String> keySetOne = mapOne.keySet();
         Set<String> keySetTwo = mapTwo.keySet();
@@ -34,8 +35,8 @@ public class Main {
 
         for (String key : keySetunion) {
             if (mapOne.containsKey(key) && mapTwo.containsKey(key) && !mapOne.get(key).equals(mapTwo.get(key))) {
-                entry.setElementOne((String) outputOne.get(key));
-                entry.setElementTwo((String) outputTwo.get(key));
+                entry.setElementOne((String) mapOne.get(key));
+                entry.setElementTwo((String) mapTwo.get(key));
                 output.addField(key,entry.toList());
             } else if (!outputOne.containsKey(key)) {
                 entry.setElementOne(null);
