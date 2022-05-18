@@ -32,7 +32,7 @@ public class Main {
         Set<String> keySetunion = new HashSet<String>(keySetOne);
         keySetunion.addAll(keySetTwo);
 
-        for (String key : keySetunion.keySet()) {
+        for (String key : keySetunion) {
             if (!mapTwo.get(key).equals(mapOne.get(key))) {
                 if ((mapOne.get(key) instanceof String)) {
                     String[] values = {(String) mapOne.get(key), (String) mapTwo.get(key)};
