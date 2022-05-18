@@ -27,7 +27,12 @@ public class Main {
 
         Output output = out;
 
-        for (String key : mapOne.keySet()) {
+        Set<String> keySetOne = mapOne.keySet();
+        Set<String> keySetTwo = mapTwo.keySet();
+        Set<String> keySetunion = new HashSet<String>(keySetOne);
+        keySetunion.addAll(keySetTwo);
+
+        for (String key : keySetunion.keySet()) {
             if (!mapTwo.get(key).equals(mapOne.get(key))) {
                 if ((mapOne.get(key) instanceof String)) {
                     String[] values = {(String) mapOne.get(key), (String) mapTwo.get(key)};
