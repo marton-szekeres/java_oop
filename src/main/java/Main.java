@@ -38,9 +38,8 @@ public class Main {
                 if (mapOne.get(key) instanceof String) {
                     entry.setElementOne((String) mapOne.get(key));
                     entry.setElementTwo((String) mapTwo.get(key));
-                    System.out.println(entry + " + " + key);
+                    System.out.println(entry.getElementTwo() + " + " + key);
                     output.addPrimitiveField(key,entry.toList());
-                    System.out.println(output);
                 } else {
                     output.addBeanField(key, compareProfiles((HashMap<String, Object>) mapOne.get(key),(HashMap<String, Object>) mapTwo.get(key), out));
                 }
