@@ -20,6 +20,14 @@ public class Output {
         this.beanFields = beanFields;
     }
 
+    public void addPrimitiveField(String key, String[] value) {
+        primitiveFields.put(key, value);
+    }
+
+    public void addBeanField(String key, Output value) {
+        beanFields.put(key, value);
+    }
+
     @Override
     public String toString() {
         return "Output{" +

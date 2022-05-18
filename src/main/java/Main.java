@@ -35,17 +35,31 @@ public class Main {
 
         for (String key : keySetunion) {
             if (mapOne.containsKey(key) && mapTwo.containsKey(key) && !mapOne.get(key).equals(mapTwo.get(key))) {
-                entry.setElementOne((String) mapOne.get(key));
-                entry.setElementTwo((String) mapTwo.get(key));
-                output.addField(key,entry.toList());
-            } else if (!outputOne.containsKey(key)) {
+                if (mapOne.get(key) instanceof String) {
+                    entry.setElementOne((String) mapOne.get(key));
+                    entry.setElementTwo((String) mapTwo.get(key));
+                    System.out.println(entry + " + " + key);
+                    output.addPrimitiveField(key,entry.toList());
+                    System.out.println(output);
+                } else {
+                    output.addBeanField(key, compareProfiles((HashMap<String, Object>) mapOne.get(key),(HashMap<String, Object>) mapTwo.get(key), out));
+                }
+            } else if (!mapOne.containsKey(key)) {
                 entry.setElementOne(null);
-                entry.setElementTwo((String) outputTwo.get(key));
-                output.getFields().put(key, entry.toList());
-            } else if (!outputTwo.containsKey(key)) {
-                entry.setElementOne((String) outputOne.get(key));
+                entry.setElementTwo((String) mapTwo.get(key));
+                if (mapOne.get(key) instanceof String) {
+                    output.addPrimitiveField(key,entry.toList());
+                } else {
+                    output.addBeanField(key, compareProfiles(null,(HashMap<String, Object>) mapTwo.get(key), out));
+                }
+            } else if (!mapTwo.containsKey(key)) {
+                entry.setElementOne((String) mapOne.get(key));
                 entry.setElementTwo(null);
-                output.getFields().put(key, entry.toList());
+                if (mapOne.get(key) instanceof String) {
+                    output.addPrimitiveField(key,entry.toList());
+                } else {
+                    output.addBeanField(key, compareProfiles((HashMap<String, Object>) mapOne.get(key),null, out));
+                }
             }
         }        return output;
     }
