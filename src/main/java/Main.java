@@ -23,8 +23,9 @@ public class Main {
         return output;
     }
 
-    public static Output compareProfiles(HashMap<String, Object> mapOne, HashMap<String, Object> mapTwo, Output out) {
+    public static Output compareProfiles(HashMap<String, Object> mapOne, HashMap<String, Object> mapTwo) {
 
+        Output out = new Output();
         Entry entry = new Entry();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -42,7 +43,7 @@ public class Main {
                     out.addPrimitiveField(key, entry.toList());
                 } else {
                     System.out.println("1b: " + key);
-                    out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), mapper.convertValue(mapTwo.get(key), HashMap.class), out));
+                    out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), mapper.convertValue(mapTwo.get(key), HashMap.class)));
                 }
             } else if (mapOne.get(key) == null) {
                 if (mapTwo.get(key) instanceof String) {
@@ -58,7 +59,7 @@ public class Main {
                     for (String field : fields) {
                         dummy.put(field, "dummy_text");
                     }
-                    out.addBeanField(key, compareProfiles(dummy, mapper.convertValue(mapTwo.get(key), HashMap.class), out))
+                    out.addBeanField(key, compareProfiles(dummy, mapper.convertValue(mapTwo.get(key), HashMap.class)))
                     ;
                 }
             } else if (mapTwo.get(key) == null) {
@@ -75,7 +76,7 @@ public class Main {
                     for (String field : fields) {
                         dummy.put(field, "dummy_text");
                     }
-                    out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), dummy, out)
+                    out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), dummy)
                     );
                 }
             }
@@ -100,7 +101,7 @@ public class Main {
         HashMap<String, Object> m1 = getFieldValues(profileOne);
         HashMap<String, Object> m2 = getFieldValues(profileTwo);
 
-        System.out.println(compareProfiles(m1, m2, new Output()).getBeanFields());
+        System.out.println(compareProfiles(m1, m2).getPrimitiveFields().toString());
 
     }
 }
