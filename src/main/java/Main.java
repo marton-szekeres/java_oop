@@ -75,7 +75,6 @@ public class Main {
         Profile profileTwo = new Profile();
         File fileOne = new File("src/main/resources/profile_jane.json");
         File fileTwo = new File("src/main/resources/profile_john.json");
-        Output OutputOne = new Output();
         ObjectMapper mapper = new ObjectMapper();
 
         try {
@@ -88,6 +87,7 @@ public class Main {
         HashMap<String, Object> m1 = getFieldValues(profileOne);
         HashMap<String, Object> m2 = getFieldValues(profileTwo);
 
+        System.out.println(compareProfiles(m1, m2, new Output()).getPrimitiveFields());
         System.out.println(compareProfiles(m1, m2, new Output()).getBeanFields());
 
     }
