@@ -25,7 +25,6 @@ public class Main {
 
     public static Output compareProfiles(HashMap<String, Object> mapOne, HashMap<String, Object> mapTwo, Output out) {
 
-        Output output = out;
         Entry entry = new Entry();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -37,37 +36,51 @@ public class Main {
         for (String key : keySetunion) {
             if (mapOne.get(key) != null && mapTwo.get(key) != null && !mapOne.get(key).equals(mapTwo.get(key))) {
                 if (mapOne.get(key) instanceof String) {
+                    System.out.println("1a: " + key);
                     entry.setElementOne((String) mapOne.get(key));
                     entry.setElementTwo((String) mapTwo.get(key));
-                    output.addPrimitiveField(key, entry.toList());
+                    out.addPrimitiveField(key, entry.toList());
                 } else {
-                    output.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), mapper.convertValue(mapTwo.get(key), HashMap.class), out));
+                    System.out.println("1b: " + key);
+                    out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), mapper.convertValue(mapTwo.get(key), HashMap.class), out));
                 }
             } else if (mapOne.get(key) == null) {
                 if (mapTwo.get(key) instanceof String) {
+                    System.out.println("2a: " + key);
                     entry.setElementOne(null);
                     entry.setElementTwo((String) mapTwo.get(key));
-                    output.addPrimitiveField(key, entry.toList());
+                    out.addPrimitiveField(key, entry.toList());
                 } else {
-                    output.addBeanField(key, compareProfiles(null, mapper.convertValue(mapTwo.get(key), HashMap.class), out));
+                    System.out.println("2b: " + key);
+                    HashMap<String, Object> temp = (HashMap<String, Object>) mapper.convertValue(mapTwo.get(key), HashMap.class);
+                    Set<String> fields = temp.keySet();
+                    HashMap<String, Object> dummy = new HashMap<>();
+                    for (String field : fields) {
+                        dummy.put(field, "dummy_text");
+                    }
+                    out.addBeanField(key, compareProfiles(dummy, mapper.convertValue(mapTwo.get(key), HashMap.class), out))
+                    ;
                 }
             } else if (mapTwo.get(key) == null) {
                 if (mapOne.get(key) instanceof String) {
+                    System.out.println("3a: " + key);
                     entry.setElementOne((String) mapOne.get(key));
                     entry.setElementTwo(null);
-                    output.addPrimitiveField(key, entry.toList());
+                    out.addPrimitiveField(key, entry.toList());
                 } else {
+                    System.out.println("3b: " + key);
                     HashMap<String, Object> temp = (HashMap<String, Object>) mapper.convertValue(mapOne.get(key), HashMap.class);
                     Set<String> fields = temp.keySet();
                     HashMap<String, Object> dummy = new HashMap<>();
                     for (String field : fields) {
                         dummy.put(field, "dummy_text");
                     }
-                    output.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), dummy, out));
+                    out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), dummy, out)
+                    );
                 }
             }
         }
-        return output;
+        return out;
     }
 
     public static void main(String[] args) {
@@ -87,7 +100,7 @@ public class Main {
         HashMap<String, Object> m1 = getFieldValues(profileOne);
         HashMap<String, Object> m2 = getFieldValues(profileTwo);
 
-        System.out.println(compareProfiles(m1, m2, new Output()));
+        System.out.println(compareProfiles(m1, m2, new Output()).getBeanFields());
 
     }
 }

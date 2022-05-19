@@ -1,3 +1,5 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +35,7 @@ public class Output {
     public void addBeanField(String key, Output value) {
         beanFields.put(key, value);
     }
-
-
-    }
 }
+
+
 
