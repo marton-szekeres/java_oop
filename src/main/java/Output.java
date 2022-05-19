@@ -33,12 +33,5 @@ public class Output {
     public void addBeanField(String key, Output value) {
         beanFields.put(key, value);
     }
-
-    @Override
-    public String toString() {
-        return "Output{" +
-                ", primitiveFields=" + primitiveFields +
-                ", beanFields=" + beanFields +
-                '}';
-    }
 }
+

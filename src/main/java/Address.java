@@ -1,6 +1,4 @@
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Address implements Serializable {
     private String city;
@@ -29,10 +27,6 @@ public class Address implements Serializable {
 
     public void setStreet(String street) {
         this.street = street;
-    }
-
-    public HashMap<String, Object> toMap {
-
     }
 
     @Override

@@ -27,6 +27,7 @@ public class Main {
 
         Output output = out;
         Entry entry = new Entry();
+        ObjectMapper mapper = new ObjectMapper();
 
         Set<String> keySetOne = mapOne.keySet();
         Set<String> keySetTwo = mapTwo.keySet();
@@ -34,33 +35,39 @@ public class Main {
         keySetunion.addAll(keySetTwo);
 
         for (String key : keySetunion) {
-            if (mapOne.containsKey(key) && mapTwo.containsKey(key) && !mapOne.get(key).equals(mapTwo.get(key))) {
+            if (mapOne.get(key) != null && mapTwo.get(key) != null && !mapOne.get(key).equals(mapTwo.get(key))) {
                 if (mapOne.get(key) instanceof String) {
                     entry.setElementOne((String) mapOne.get(key));
                     entry.setElementTwo((String) mapTwo.get(key));
-                    System.out.println(entry.getElementTwo() + " + " + key);
-                    output.addPrimitiveField(key,entry.toList());
+                    output.addPrimitiveField(key, entry.toList());
                 } else {
-                    output.addBeanField(key, compareProfiles((HashMap<String, Object>) mapOne.get(key),(HashMap<String, Object>) mapTwo.get(key), out));
+                    output.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), mapper.convertValue(mapTwo.get(key), HashMap.class), out));
                 }
-            } else if (!mapOne.containsKey(key)) {
-                entry.setElementOne(null);
-                entry.setElementTwo((String) mapTwo.get(key));
-                if (mapOne.get(key) instanceof String) {
-                    output.addPrimitiveField(key,entry.toList());
+            } else if (mapOne.get(key) == null) {
+                if (mapTwo.get(key) instanceof String) {
+                    entry.setElementOne(null);
+                    entry.setElementTwo((String) mapTwo.get(key));
+                    output.addPrimitiveField(key, entry.toList());
                 } else {
-                    output.addBeanField(key, compareProfiles(null,(HashMap<String, Object>) mapTwo.get(key), out));
+                    output.addBeanField(key, compareProfiles(null, mapper.convertValue(mapTwo.get(key), HashMap.class), out));
                 }
-            } else if (!mapTwo.containsKey(key)) {
-                entry.setElementOne((String) mapOne.get(key));
-                entry.setElementTwo(null);
+            } else if (mapTwo.get(key) == null) {
                 if (mapOne.get(key) instanceof String) {
-                    output.addPrimitiveField(key,entry.toList());
+                    entry.setElementOne((String) mapOne.get(key));
+                    entry.setElementTwo(null);
+                    output.addPrimitiveField(key, entry.toList());
                 } else {
-                    output.addBeanField(key, compareProfiles((HashMap<String, Object>) mapOne.get(key),null, out));
+                    HashMap<String, Object> temp = (HashMap<String, Object>) mapper.convertValue(mapOne.get(key), HashMap.class);
+                    Set<String> fields = temp.keySet();
+                    HashMap<String, Object> dummy = new HashMap<>();
+                    for (String field : fields) {
+                        dummy.put(field, "dummy_text");
+                    }
+                    output.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), dummy, out));
                 }
             }
-        }        return output;
+        }
+        return output;
     }
 
     public static void main(String[] args) {
@@ -81,7 +88,7 @@ public class Main {
         HashMap<String, Object> m1 = getFieldValues(profileOne);
         HashMap<String, Object> m2 = getFieldValues(profileTwo);
 
-        System.out.println(compareProfiles(m1, m2, new Output()));
+        System.out.println(compareProfiles(m1, m2, new Output()).getBeanFields());
 
     }
 }
