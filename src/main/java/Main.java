@@ -101,7 +101,7 @@ public class Main {
         HashMap<String, Object> m1 = getFieldValues(profileOne);
         HashMap<String, Object> m2 = getFieldValues(profileTwo);
 
-        System.out.println(compareProfiles(m1, m2).getPrimitiveFields().toString());
-
+        Output fin = compareProfiles(m1, m2);
+        System.out.println(fin);
     }
 }
