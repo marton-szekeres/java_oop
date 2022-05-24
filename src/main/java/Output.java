@@ -1,49 +1,40 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class Output {
-    private Map<String, String[]> primitiveFields;
-    private Map<String, Output> beanFields;
+    private Map<String, String[]> fields;
+    private Map<String, Output> nestedObjects;
 
     Output() {
-        primitiveFields = new HashMap<>();
-        beanFields = new HashMap<>();
+        fields = new HashMap<>();
+        nestedObjects = new HashMap<>();
     }
 
-    public Map<String, String[]> getPrimitiveFields() {
-        return primitiveFields;
+    public Map<String, String[]> getFields() {
+        return fields;
     }
 
-    public void setPrimitiveFields(Map<String, String[]> primitiveFields) {
-        this.primitiveFields = primitiveFields;
+    public void setFields(Map<String, String[]> fields) {
+        this.fields = fields;
     }
 
-    public Map<String, Output> getBeanFields() {
-        return beanFields;
+    public Map<String, Output> getNestedObjects() {
+        return nestedObjects;
     }
 
-    public void setBeanFields(Map<String, Output> beanFields) {
-        this.beanFields = beanFields;
+    public void setNestedObjects(Map<String, Output> nestedObjects) {
+        this.nestedObjects = nestedObjects;
     }
 
     public void addPrimitiveField(String key, String[] value) {
-        primitiveFields.put(key, value);
+        fields.put(key, value);
     }
 
     public void addBeanField(String key, Output value) {
-        beanFields.put(key, value);
-    }
-
-    @Override
-    public String toString() {
-        return "Output{" +
-                "primitiveFields=" + primitiveFields +
-                ", beanFields=" + beanFields +
-                '}';
+        nestedObjects.put(key, value);
     }
 }
+
 
 
 

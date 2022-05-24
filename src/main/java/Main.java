@@ -74,7 +74,7 @@ public class Main {
                     Set<String> fields = temp.keySet();
                     HashMap<String, Object> dummy = new HashMap<>();
                     for (String field : fields) {
-                        dummy.put(field, "dummy_text");
+                        dummy.put(field, null);
                     }
                     out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), dummy)
                     );
@@ -84,7 +84,7 @@ public class Main {
         return out;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Profile profileOne = new Profile();
         Profile profileTwo = new Profile();
         File fileOne = new File("src/main/resources/profile_jane.json");
@@ -102,6 +102,6 @@ public class Main {
         HashMap<String, Object> m2 = getFieldValues(profileTwo);
 
         Output fin = compareProfiles(m1, m2);
-        System.out.println(fin);
+        mapper.writeValue(new File("test.json"), fin);
     }
 }
