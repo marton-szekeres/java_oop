@@ -23,11 +23,13 @@ public class Main {
         return output;
     }
 
-    public static Output compareProfiles(HashMap<String, Object> mapOne, HashMap<String, Object> mapTwo) {
+    public static Output compareProfiles(HashMap<String, Object> inputMapOne, HashMap<String, Object> inputMapTwo) {
 
         Output out = new Output();
         Entry entry = new Entry();
         ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> mapOne = (inputMapOne == null ? new HashMap<>() : inputMapOne);
+        Map<String, Object> mapTwo = (inputMapTwo == null ? new HashMap<>() : inputMapTwo);
 
         Set<String> keySetOne = mapOne.keySet();
         Set<String> keySetTwo = mapTwo.keySet();
@@ -53,13 +55,7 @@ public class Main {
                     out.addPrimitiveField(key, entry.toList());
                 } else {
                     System.out.println("2b: " + key);
-                    HashMap<String, Object> temp = (HashMap<String, Object>) mapper.convertValue(mapTwo.get(key), HashMap.class);
-                    Set<String> fields = temp.keySet();
-                    HashMap<String, Object> dummy = new HashMap<>();
-                    for (String field : fields) {
-                        dummy.put(field, "dummy_text");
-                    }
-                    out.addBeanField(key, compareProfiles(dummy, mapper.convertValue(mapTwo.get(key), HashMap.class)))
+                    out.addBeanField(key, compareProfiles(null, mapper.convertValue(mapTwo.get(key), HashMap.class)))
                     ;
                 }
             } else if (mapTwo.get(key) == null) {
@@ -70,13 +66,7 @@ public class Main {
                     out.addPrimitiveField(key, entry.toList());
                 } else {
                     System.out.println("3b: " + key);
-                    HashMap<String, Object> temp = (HashMap<String, Object>) mapper.convertValue(mapOne.get(key), HashMap.class);
-                    Set<String> fields = temp.keySet();
-                    HashMap<String, Object> dummy = new HashMap<>();
-                    for (String field : fields) {
-                        dummy.put(field, null);
-                    }
-                    out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), dummy)
+                    out.addBeanField(key, compareProfiles(mapper.convertValue(mapOne.get(key), HashMap.class), null)
                     );
                 }
             }
