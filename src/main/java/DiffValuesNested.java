@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class DiffValuesNested extends Strategy {
+public class DiffValuesNested extends Comparison implements Strategy {
     public void compareAction(Param param) {
         if (param.getMapOne().get(param.getKey()) != null
                 && param.getMapTwo().get(param.getKey()) != null

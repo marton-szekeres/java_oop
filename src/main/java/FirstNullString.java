@@ -1,7 +1,8 @@
-public class FirstNullString extends Strategy {
+public class FirstNullString extends Comparison implements Strategy {
     public void compareAction(Param param) {
-        if (param.getMapOne().get(param.getKey()) == null) {
-            param.getEntry().setElementOne((String) param.getMapOne().get(param.getKey()));
+        if (param.getMapOne().get(param.getKey()) == null
+                && param.getMapTwo().get(param.getKey()) instanceof String) {
+            param.getEntry().setElementOne(null);
             param.getEntry().setElementTwo((String) param.getMapTwo().get(param.getKey()));
             param.getOutput().addPrimitiveField(param.getKey(), param.getEntry().toList());
         }

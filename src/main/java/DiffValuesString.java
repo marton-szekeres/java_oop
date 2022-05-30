@@ -1,4 +1,4 @@
-public class DiffValuesString extends Strategy {
+public class DiffValuesString extends Comparison implements Strategy {
     public void compareAction(Param param) {
         if (param.getMapOne().get(param.getKey()) != null
                 && param.getMapTwo().get(param.getKey()) != null

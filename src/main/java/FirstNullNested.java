@@ -1,12 +1,10 @@
 import java.util.HashMap;
 
-public class FirstNullNested extends Strategy {
+public class FirstNullNested extends Comparison implements Strategy {
     public void compareAction(Param param) {
-        if (param.getMapOne().get(param.getKey()) != null
-                && param.getMapTwo().get(param.getKey()) != null
-                && !param.getMapOne().get(param.getKey()).equals(param.getMapTwo().get(param.getKey()))) {
+        if (param.getMapOne().get(param.getKey()) == null) {
             param.getOutput().addBeanField(param.getKey(),
-                    compareProfiles(param.getMapper().convertValue(param.getMapOne().get(param.getKey()), HashMap.class),
+                    compareProfiles(null,
                             param.getMapper().convertValue(param.getMapTwo().get(param.getKey()), HashMap.class)));
 
         }
