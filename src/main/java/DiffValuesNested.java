@@ -5,7 +5,7 @@ public class DiffValuesNested extends Comparison implements Strategy {
         if (param.getMapOne().get(param.getKey()) != null
                 && param.getMapTwo().get(param.getKey()) != null
                 && !param.getMapOne().get(param.getKey()).equals(param.getMapTwo().get(param.getKey()))
-                && param.getMapOne().get(param.getKey()) instanceof String  == false) {
+                && param.getMapOne().get(param.getKey()) instanceof String == false) {
             param.getOutput().addBeanField(param.getKey(),
                     compareProfiles(param.getMapper().convertValue(param.getMapOne().get(param.getKey()), HashMap.class),
                             param.getMapper().convertValue(param.getMapTwo().get(param.getKey()), HashMap.class)));
