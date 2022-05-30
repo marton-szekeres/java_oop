@@ -17,6 +17,7 @@ public abstract class Strategy {
 
         for (String key : keySetunion) {
             param.setKey(key);
+
         }
         return param.getOutput();
     }
