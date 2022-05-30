@@ -1,4 +1,4 @@
-public class FirstNullString extends Comparison implements Strategy {
+public class FirstNullString implements Strategy {
     public void compareAction(Param param) {
         if (param.getMapOne().get(param.getKey()) == null
                 && param.getMapTwo().get(param.getKey()) instanceof String) {
