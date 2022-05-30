@@ -1,3 +1,3 @@
 public interface Strategy {
-    public abstract void compareAction(Param param);
+    public void compareAction(Param param);
 }
