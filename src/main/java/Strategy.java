@@ -15,8 +15,17 @@ public abstract class Strategy {
         Set<String> keySetunion = new HashSet<String>(keySetOne);
         keySetunion.addAll(keySetTwo);
 
+        DiffValuesString a = new DiffValuesString();
+        DiffValuesNested b = new DiffValuesNested();
+        FirstNullString c = new FirstNullString();
+        FirstNullNested d = new FirstNullNested();
+
         for (String key : keySetunion) {
             param.setKey(key);
+            a.compareAction(param);
+            b.compareAction(param);
+            c.compareAction(param);
+            d.compareAction(param);
 
         }
         return param.getOutput();
