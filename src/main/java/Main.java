@@ -41,7 +41,7 @@ public class Main {
         HashMap<String, Object> m2 = getFieldValues(profileTwo);
 
         Comparison comparison = new Comparison();
-        Output fin = Comparison.compareProfiles(m1, m2);
+        Output fin = comparison.compareProfiles(m1, m2);
         mapper.writeValue(new File("test.json"), fin);
     }
 }
