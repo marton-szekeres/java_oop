@@ -7,13 +7,20 @@ public class Param {
     private HashMap<String, Object> mapTwo;
     private Output output;
     private Entry entry;
-    private ObjectMapper mapper;
     private String key;
+    private Comparison comparison;
+
+    public void setComparison(Comparison comparison) {
+        this.comparison = comparison;
+    }
+
+    public Comparison getComparison() {
+        return comparison;
+    }
 
     Param() {
         output = new Output();
         entry = new Entry();
-        mapper = new ObjectMapper();
     }
 
     public HashMap<String, Object> getMapOne() {
@@ -46,14 +53,6 @@ public class Param {
 
     public void setEntry(Entry entry) {
         this.entry = entry;
-    }
-
-    public ObjectMapper getMapper() {
-        return mapper;
-    }
-
-    public void setMapper(ObjectMapper mapper) {
-        this.mapper = mapper;
     }
 
     public String getKey() {

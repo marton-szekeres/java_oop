@@ -1,4 +1,4 @@
-public class SecondNullString implements Strategy {
+public class SecondNullString implements CompareStrategy {
     public void compareAction(Param param) {
         if (param.getMapTwo().get(param.getKey()) == null
                 && param.getMapOne().get(param.getKey()) instanceof String) {

@@ -3,8 +3,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Comparison {
+
+    private static final CompareStrategy[] strats = new CompareStrategy[]{new DiffValuesString()
+            , new DiffValuesNested()
+            , new FirstNullString()
+            , new FirstNullNested()
+            , new SecondNullString()
+            , new SecondNullNested()};
+
     public Output compareProfiles(HashMap<String, Object> inputMapOne, HashMap<String, Object> inputMapTwo) {
         Param param = new Param();
+        param.setComparison(this);
         param.setMapOne(inputMapOne == null ? new HashMap<>() : inputMapOne);
         param.setMapTwo(inputMapTwo == null ? new HashMap<>() : inputMapTwo);
 
@@ -15,12 +24,9 @@ public class Comparison {
 
         for (String key : keySetunion) {
             param.setKey(key);
-            new DiffValuesString().compareAction(param);
-            new DiffValuesNested().compareAction(param);
-            new FirstNullString().compareAction(param);
-            new FirstNullNested().compareAction(param);
-            new SecondNullString().compareAction(param);
-            new SecondNullNested().compareAction(param);
+            for (CompareStrategy strat : strats) {
+                strat.compareAction(param);
+            }
         }
         return param.getOutput();
     }
